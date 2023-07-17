@@ -41,6 +41,8 @@ struct _GstVpuEnc {
   gboolean set_keyframe;
   guint qpmin;
   guint qpmax;
+  gint profile;
+  gint level;
 
 	VpuEncHandle handle;
 	VpuEncInitInfo init_info;
