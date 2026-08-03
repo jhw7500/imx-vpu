@@ -1,0 +1,41 @@
+# ---- 빌드 산출물 ----
+staging/
+meson.cross
+imx-gst1.0-plugin/build/
+
+# ---- NXP EULA 바이너리 (public repo 게시 불가) ----
+# setup-deps.sh 로 recipe-sysroot에서 복사해 채운다
+deps/
+
+# ---- imx-vpuwrap in-tree autotools 생성물 ----
+imx-vpuwrap/Makefile
+imx-vpuwrap/Makefile.in
+imx-vpuwrap/aclocal.m4
+imx-vpuwrap/autom4te.cache/
+imx-vpuwrap/config.guess
+imx-vpuwrap/config.h
+imx-vpuwrap/config.h.in
+imx-vpuwrap/config.log
+imx-vpuwrap/config.status
+imx-vpuwrap/config.sub
+imx-vpuwrap/configure
+imx-vpuwrap/libtool
+imx-vpuwrap/ltmain.sh
+imx-vpuwrap/missing
+imx-vpuwrap/install-sh
+imx-vpuwrap/depcomp
+imx-vpuwrap/compile
+imx-vpuwrap/ar-lib
+imx-vpuwrap/m4/
+imx-vpuwrap/stamp-h1
+imx-vpuwrap/libfslvpuwrap.pc
+imx-vpuwrap/test/Makefile
+imx-vpuwrap/test/Makefile.in
+
+# ---- 공통 오브젝트/캐시 ----
+*.o
+*.lo
+*.la
+.libs/
+.deps/
+*.pyc
