@@ -39,6 +39,10 @@ struct _GstVpuEnc {
   guint stream_slice_count;
   guint force_idr;
   gboolean set_keyframe;
+  guint qpmin;
+  guint qpmax;
+  gint profile;
+  gint level;
 
 	VpuEncHandle handle;
 	VpuEncInitInfo init_info;

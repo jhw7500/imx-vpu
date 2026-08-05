@@ -589,6 +589,10 @@ typedef struct {
 	int nStreamSliceCount;
 	int nIntraRefresh;		/*intra macro block numbers*/
 	int nIntraQP;				/*0: auto, >0: qp value*/
+	int nUserQpMax;
+	int nUserQpMin;
+	int nProfile;
+	int nLevel;
 	int nChromaInterleave;	/*should be set to 1 when (nMapType!=0)*/
 	VpuEncMirrorDirection sMirror;
 	//int nQuantParam;
@@ -664,6 +668,8 @@ typedef struct {
 	int nUserQpMin;
 	int nUserQpMinEnable;
 	int nUserQpMaxEnable;
+	int nProfile;
+	int nLevel;
 
 	int nIntraRefresh;
 	int nRcIntraQp;
