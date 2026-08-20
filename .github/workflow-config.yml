@@ -13,7 +13,9 @@ automation_commit: 5ec427c540619d6fbd80ea758de8d8e0bf00d987
 workflows:
   # Repo-specific
   shellcheck:
-    enabled: true
+    # vendored NXP autotools 스크립트(imx-gst1.0-plugin/imx-vpuwrap의 autogen.sh,
+    # configure~)가 lint를 통과하지 못한다 — 수정 대상이 아닌 업스트림 코드라 비활성.
+    enabled: false
     description: "Shell script static analysis"
 
   build-test:
