@@ -69,3 +69,5 @@ meta-pim에는 이미 백포트 패치들이 반영되어 있다 (2026-08-03):
 - vpu 외 플러그인/툴(aiurdemux, gplay 등)도 함께 빌드되지만 배포 대상 아님
 - 소스 출처: `/opt/desktop/build-desktop/workspace/sources/`의 devtool workspace에서
   clone (원격 push 시 workspace가 origin)
+
+<!-- automation v1.45.2 reviewer canary; intentionally unmerged -->
