@@ -39,3 +39,7 @@ imx-vpuwrap/test/Makefile.in
 .libs/
 .deps/
 *.pyc
+
+# clangd (호스트 종속 — 각자 빌드 시 생성)
+compile_commands.json
+.cache/
