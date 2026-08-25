@@ -91,19 +91,31 @@ echo "배포: ./update_bin.sh (두 파일 세트 필수)"
 # imx-gst1.0-plugin 은 meson 이 build/compile_commands.json 을 만들어 준다.
 # imx-vpuwrap 은 autotools 라 .cmd 가 없으므로 compiledb 로 make -n 출력을
 # 파싱한다 (컴파일 없음). 설치: python3 -m pip install --user compiledb
+#
 # set -e (15행) 때문에 빌드가 실패하면 여기까지 오지 않는다. 즉 이 지점은 항상
 # 성공 경로다. $? 를 읽으면 직전 echo 의 상태(항상 0)를 잡게 되어 무의미하므로
 # 읽지 않는다.
-if command -v compiledb >/dev/null 2>&1; then
+#
+# 뒤집어 말하면 빌드가 실패한 경우 DB 는 갱신되지 않고 직전 성공 빌드 기준으로
+# 남는다. 지우지는 않는다 — DB 가 없으면 clangd 는 헤더조차 못 찾는 상태로
+# 되돌아가므로, 낡은 DB 가 없는 것보다 낫다. 대신 갱신하지 못했을 때는 그
+# 사실을 알린다.
+_cc_target="${TOP}/imx-vpuwrap/compile_commands.json"
+if ! command -v compiledb >/dev/null 2>&1; then
+    echo "compiledb 가 없어 imx-vpuwrap/compile_commands.json 을 갱신하지 못했다." >&2
+    echo "  설치: python3 -m pip install --user compiledb" >&2
+    [ -e "$_cc_target" ] && echo "  기존 DB 는 직전 성공 빌드 기준이라 낡았을 수 있다." >&2
+else
     _cc_tmp="$(mktemp "${TOP}/imx-vpuwrap/.compile_commands.json.XXXXXX" 2>/dev/null)" || _cc_tmp=""
     if [ -n "$_cc_tmp" ] \
        && ( cd "${TOP}/imx-vpuwrap" && compiledb -n -o "$_cc_tmp" make PKG_CONFIG_SYSROOT_DIR="${DEPS}" ) >/dev/null 2>&1 \
        && grep -q '"file"' "$_cc_tmp" 2>/dev/null \
-       && mv -f "$_cc_tmp" "${TOP}/imx-vpuwrap/compile_commands.json"; then
+       && mv -f "$_cc_tmp" "$_cc_target"; then
         echo "imx-vpuwrap/compile_commands.json 갱신됨 (clangd)"
     else
         rm -f "$_cc_tmp"
         echo "imx-vpuwrap/compile_commands.json 갱신 실패 — 빌드 자체는 정상" >&2
+        [ -e "$_cc_target" ] && echo "  기존 DB 는 직전 성공 빌드 기준이라 낡았을 수 있다." >&2
     fi
 fi
 "$_mfi_end" 0
