@@ -11,15 +11,15 @@ Yocto/bitbake 없이 SDK만으로 수 초 단위 수정-빌드 반복이 가능�
 | `imx-gst1.0-plugin/` | NXP 4.6.1 + set-keyframe(자사) + 백포트 2커밋 (qp-min/qp-max, profile/level) |
 | `deps/` | vpuwrap 빌드용 hantro 헤더/라이브러리 (recipe-sysroot에서 복사, 1회성) |
 | `staging/` | vpuwrap 빌드 산출물 — 플러그인이 이 헤더/라이브러리로 빌드됨 |
-| `build.sh` | 전체 빌드 (max9296의 make-for-imx8 대응) |
+| `make-for-imx8.sh` | 전체 빌드 (max9296의 make-for-imx8 대응) |
 | `update_bin.sh` | 산출물 2개를 `../pim-package-jhw/dist/pim/usr/lib/`로 복사 |
-| `meson.cross` | build.sh가 매번 자동 생성 (SDK 경로 기반) |
+| `meson.cross` | make-for-imx8.sh가 매번 자동 생성 (SDK 경로 기반) |
 
 ## 사용법
 
 ```bash
-./build.sh          # 증분 빌드 (수정-반복, 수 초)
-./build.sh reconf   # 최초 1회 / 빌드설정 변경 시 (configure+meson 재구성)
+./make-for-imx8.sh          # 증분 빌드 (수정-반복, 수 초)
+./make-for-imx8.sh reconf   # 최초 1회 / 빌드설정 변경 시 (configure+meson 재구성)
 ./update_bin.sh     # dist 반영 (strip 포함) → pim-package 빌드/설치 시 타겟 적용
 ```
 
@@ -63,7 +63,7 @@ meta-pim에는 이미 백포트 패치들이 반영되어 있다 (2026-08-03):
 ## 빌드 구조 메모 (트러블슈팅)
 
 - vpuwrap: autotools. hantro 헤더는 make 변수 `PKG_CONFIG_SYSROOT_DIR`로 참조되어
-  build.sh가 `make PKG_CONFIG_SYSROOT_DIR=deps`로 덮어씀 (SDK sysroot에 hantro 없음)
+  make-for-imx8.sh가 `make PKG_CONFIG_SYSROOT_DIR=deps`로 덮어씀 (SDK sysroot에 hantro 없음)
 - plugin: meson. SDK 동봉 meson.cross는 relocation이 안 되어 있어 자체 생성 파일 사용.
   vpuwrap을 pkg-config가 아닌 c_args/link_args로 주입 (`-I staging/usr/include/imx-mm/vpu`)
 - vpu 외 플러그인/툴(aiurdemux, gplay 등)도 함께 빌드되지만 배포 대상 아님

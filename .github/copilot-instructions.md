@@ -8,7 +8,7 @@ NXP 공식 저장소의 화질 관련 패치를 4.6.1(L5.10.y BSP) 기준으로 
 
 - `imx-vpuwrap/` — NXP VPU wrapper 라이브러리 (libfslvpuwrap). autotools.
 - `imx-gst1.0-plugin/` — NXP GStreamer 플러그인 (vpuenc_h264/hevc 등). meson.
-- `build.sh` — Yocto SDK(`/shared/fsl-imx-xwayland/5.10-hardknott`) 크로스빌드.
+- `make-for-imx8.sh` — Yocto SDK(`/shared/fsl-imx-xwayland/5.10-hardknott`) 크로스빌드.
   wrapper를 먼저 빌드해 `staging/`에 넣고, 플러그인이 그것을 참조한다.
 - `update_bin.sh` — 산출물 2개를 `../pim-package-jhw/dist/`로 복사(strip 포함).
 - `setup-deps.sh` — NXP EULA 바이너리(deps/)를 로컬 빌드트리에서 복사 (repo 미포함).
@@ -26,6 +26,6 @@ NXP 공식 저장소의 화질 관련 패치를 4.6.1(L5.10.y BSP) 기준으로 
 
 ## 빌드/검증
 
-- 빌드: `./build.sh` (증분) / `./build.sh reconf` (재구성)
+- 빌드: `./make-for-imx8.sh` (증분) / `./make-for-imx8.sh reconf` (재구성)
 - 검증: 타겟에서 `gst-inspect-1.0 vpuenc_h264`로 속성(qp-min/qp-max/profile/level) 확인
 - GitHub 러너에서는 크로스빌드 재현 불가(SDK+EULA 바이너리 필요) — build-test 워크플로우 비활성

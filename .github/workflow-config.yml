@@ -21,7 +21,7 @@ workflows:
   build-test:
     enabled: false
     # 비활성: i.MX8MP Yocto SDK(aarch64 크로스) + hantro EULA 바이너리가 필요해
-    # stock GitHub 러너에서 재현 불가. 빌드는 로컬 ./build.sh(Yocto SDK)로 검증한다.
+    # stock GitHub 러너에서 재현 불가. 빌드는 로컬 ./make-for-imx8.sh(Yocto SDK)로 검증한다.
     description: "Build and test the package"
 
   # Shared Gemini workflows
