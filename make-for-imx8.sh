@@ -28,6 +28,9 @@ TOP="$(cd "$(dirname "$0")" && pwd)"
 
 # set -e 로 빌드가 실패하면 아래 compile_commands.json 갱신 블록에 도달하지 못한다.
 # 낡은 DB 가 그대로 남으므로 ERR 에서 알린다.
+# source 로 부른 경우 trap 이 호출한 셸에 남지 않도록, 기존 ERR trap 을 보존했다가
+# 스크립트 끝에서 되돌린다.
+_cc_prev_err_trap="$(trap -p ERR)"
 trap '[ -e "$TOP/imx-vpuwrap/compile_commands.json" ] && echo "빌드 실패로 imx-vpuwrap/compile_commands.json 을 갱신하지 않았다 — 기존 DB 는 직전 성공 빌드 기준이다." >&2' ERR
 DEPS=${TOP}/deps
 STAGING=${TOP}/staging
@@ -122,4 +125,7 @@ else
         [ -e "$_cc_target" ] && echo "  기존 DB 는 직전 성공 빌드 기준이라 낡았을 수 있다." >&2
     fi
 fi
+# ERR trap 원복 (source 로 불렸을 때 호출한 셸을 오염시키지 않는다)
+trap - ERR
+[ -n "$_cc_prev_err_trap" ] && eval "$_cc_prev_err_trap"
 "$_mfi_end" 0
