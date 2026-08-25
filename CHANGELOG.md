@@ -14,4 +14,4 @@
 - 프로젝트 초기 구성: NXP 4.6.1(MM_04.06.01_2105_L5.10.y) 기준
   - imx-vpuwrap `cab67186`
   - imx-gst1.0-plugin `057e6bf` + set-keyframe 자사 패치
-- Yocto SDK 크로스빌드 (`build.sh`) 및 pim-package dist 배포 (`update_bin.sh`)
+- Yocto SDK 크로스빌드 (`make-for-imx8.sh`) 및 pim-package dist 배포 (`update_bin.sh`)

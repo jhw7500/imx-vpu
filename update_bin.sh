@@ -13,7 +13,7 @@ DIST=${TOP}/../pim-package-jhw/dist/pim
 
 WRAP=${TOP}/staging/usr/lib/libfslvpuwrap.so.3.0.0
 PLUG=${TOP}/imx-gst1.0-plugin/build/plugins/vpu/libgstvpu.so
-[ ! -f ${WRAP} ] || [ ! -f ${PLUG} ] && { echo "산출물 없음 — 먼저 ./build.sh 실행"; exit 1; }
+[ ! -f ${WRAP} ] || [ ! -f ${PLUG} ] && { echo "산출물 없음 — 먼저 ./make-for-imx8.sh 실행"; exit 1; }
 
 # strip을 위해 SDK 환경 로드
 [ "$SDK_LOC" ] || SDK_LOC=/shared/fsl-imx-xwayland/5.10-hardknott
