@@ -25,6 +25,10 @@ set -e
 . ${SDK_LOC}/environment-setup-${SDK_NAME}
 
 TOP="$(cd "$(dirname "$0")" && pwd)"
+
+# set -e 로 빌드가 실패하면 아래 compile_commands.json 갱신 블록에 도달하지 못한다.
+# 낡은 DB 가 그대로 남으므로 ERR 에서 알린다.
+trap '[ -e "$TOP/imx-vpuwrap/compile_commands.json" ] && echo "빌드 실패로 imx-vpuwrap/compile_commands.json 을 갱신하지 않았다 — 기존 DB 는 직전 성공 빌드 기준이다." >&2' ERR
 DEPS=${TOP}/deps
 STAGING=${TOP}/staging
 
