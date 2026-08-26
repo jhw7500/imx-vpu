@@ -43,3 +43,8 @@ imx-vpuwrap/test/Makefile.in
 # clangd (호스트 종속 — 각자 빌드 시 생성)
 compile_commands.json
 .cache/
+
+# ---- 로컬 에이전트/임시 산출물 ----
+.omc/
+/tmp/
+/vpu-libs.tar.gz
