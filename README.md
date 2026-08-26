@@ -60,6 +60,9 @@ meta-pim에는 이미 백포트 패치들이 반영되어 있다 (2026-08-03):
 - `recipes-multimedia/gstreamer/imx-gst1.0-plugin/0002,0003-*.patch`
 - `recipes-multimedia/imx-vpuwrap/imx-vpuwrap/0001~0004-*.patch`
 
+패키지에 배포된 VPU 바이너리와 소스 커밋의 대응 관계는
+[`docs/pim-package-binary.md`](docs/pim-package-binary.md)에 기록한다.
+
 ## 빌드 구조 메모 (트러블슈팅)
 
 - vpuwrap: autotools. hantro 헤더는 make 변수 `PKG_CONFIG_SYSROOT_DIR`로 참조되어
