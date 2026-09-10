@@ -72,3 +72,11 @@ meta-pim에는 이미 백포트 패치들이 반영되어 있다 (2026-08-03):
 - vpu 외 플러그인/툴(aiurdemux, gplay 등)도 함께 빌드되지만 배포 대상 아님
 - 소스 출처: `/opt/desktop/build-desktop/workspace/sources/`의 devtool workspace에서
   clone (원격 push 시 workspace가 origin)
+
+## PR 리뷰 요청
+
+현재 설정에서는 PR을 열거나 갱신하는 것만으로 Claude·Gemini·OpenCode 리뷰가 실행되지 않는다.
+동일 저장소 브랜치의 PR에 `review:request` 라벨을 붙이고 draft를 해제해 리뷰를 요청한다.
+`review:skip`이 함께 있으면 두 라벨의 충돌을 먼저 해소해야 한다.
+워크플로우의 성공·건너뜀 표시만으로 리뷰 완료를 판단하지 말고,
+현재 커밋에 대한 각 리뷰어의 결과와 실제 리뷰 수행 여부를 확인한다.
