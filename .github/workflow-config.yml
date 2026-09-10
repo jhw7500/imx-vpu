@@ -58,6 +58,9 @@ workflows:
     enabled: true
     description: "Claude automatic PR review"
 
+  opencode-auto-review:
+    enabled: true
+
 # === Shared Settings ===
 claude:
   model: "claude-sonnet-4-6"
