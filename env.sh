@@ -11,6 +11,9 @@ _ENV_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 if [ -f "${_ENV_DIR}/.env" ]; then
     while IFS= read -r _env_line || [ -n "$_env_line" ]; do
         case "$_env_line" in ''|'#'*) continue ;; esac
+        # '=' 없는 줄은 건너뛴다 — ${_env_line#*=} 가 줄 전체를 돌려줘
+        # 키 이름이 값으로 들어가는 것을 막는다.
+        case "$_env_line" in *=*) ;; *) continue ;; esac
         _env_k=${_env_line%%=*}
         _env_v=${_env_line#*=}
         # 파일이 임의 변수를 설정하지 못하도록 아는 키만 받는다.
@@ -20,7 +23,7 @@ if [ -f "${_ENV_DIR}/.env" ]; then
         esac
         # 값이 비었더라도 '설정됨'이면 존중한다 — :- 로 보면 일부러 비운 값 위에
         # .env 값이 되살아난다.
-        [ -n "${!_env_k+set}" ] || printf -v "$_env_k" '%s' "$_env_v"
+        [ -n "${!_env_k+set}" ] || [ -z "$_env_v" ] || printf -v "$_env_k" '%s' "$_env_v"
     done < "${_ENV_DIR}/.env"
 fi
 
