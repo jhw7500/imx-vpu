@@ -14,8 +14,7 @@ if [ "${BASH_SOURCE[0]}" != "${0}" ]; then _mfi_end='return'; else _mfi_end='exi
 
 set -e
 
-[ "$SDK_LOC" ] || SDK_LOC=/shared/fsl-imx-xwayland/5.10-hardknott
-[ "$SDK_NAME" ] || SDK_NAME=cortexa53-crypto-poky-linux
+. "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/env.sh"
 
 [ ! -e ${SDK_LOC}/environment-setup-${SDK_NAME} ] && {
     echo "Sorry, please verify: ${SDK_LOC}/environment-setup-${SDK_NAME}"

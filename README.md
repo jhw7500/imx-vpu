@@ -17,13 +17,28 @@ Yocto/bitbake 없이 SDK만으로 수 초 단위 수정-빌드 반복이 가능�
 
 ## 사용법
 
+호스트별 경로는 저장소에 없다. 처음 한 번만 `.env`를 만든다.
+
 ```bash
+cp .env.example .env        # 편집기로 열어 경로를 채운다
 ./make-for-imx8.sh          # 증분 빌드 (수정-반복, 수 초)
 ./make-for-imx8.sh reconf   # 최초 1회 / 빌드설정 변경 시 (configure+meson 재구성)
 ./update_bin.sh     # dist 반영 (strip 포함) → pim-package 빌드/설치 시 타겟 적용
 ```
 
-- 요구사항: SDK `/shared/fsl-imx-xwayland/5.10-hardknott` (max9296과 동일; `SDK_LOC`/`SDK_NAME` 환경변수로 변경 가능)
+`.env`는 `.gitignore` 대상이라 호스트마다 값이 달라도 커밋이 충돌하지 않는다.
+세 스크립트가 `env.sh`를 통해 함께 읽는다. 채워야 할 항목의 정본은 `.env.example`.
+
+| 변수 | 무엇인가 | 쓰는 곳 |
+|---|---|---|
+| `SDK_LOC` | Yocto SDK 설치 위치 | 세 스크립트 전부 (필수) |
+| `SDK_NAME` | SDK 타깃 이름 | 세 스크립트 전부 (필수) |
+| `HANTRO_SYSROOT` | hantro 바이너리를 가져올 recipe-sysroot | `setup-deps.sh` |
+| `PIM_PACKAGE_DIR` | pim-package 저장소 위치 (비우면 `../pim-package-jhw`) | `update_bin.sh` |
+
+우선순위는 **환경변수 > `.env`**다. `setup-deps.sh`는 명령 인자가 그보다 앞선다.
+`SDK_LOC`/`SDK_NAME`이 비면 빌드 전에 멈추고 무엇을 채워야 하는지 알려준다.
+
 - 산출물: `staging/usr/lib/libfslvpuwrap.so.3.0.0`, `imx-gst1.0-plugin/build/plugins/vpu/libgstvpu.so`
 
 ## 반드시 지킬 것 — ABI 세트 배포
