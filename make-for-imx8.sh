@@ -39,7 +39,15 @@ cd ${TOP}/imx-vpuwrap
 if [ ! -x configure ] || [ "$1" = "reconf" ]; then
     autoreconf -fiv
 fi
-if [ ! -f Makefile ] || [ "$1" = "reconf" ]; then
+# libtool 스크립트는 configure 산출물이고 gitignore 대상이라 클론에 없다. Makefile 만
+# 보고 건너뛰면 libtool 이 없는 중간 상태에서 install 단계가
+# "./aarch64-poky-linux-libtool: No such file or directory" 로 죽는다.
+# 이름에 호스트 트리플 접두사가 붙으므로 glob 으로 찾는다.
+_have_libtool=0
+for _lt in ./*libtool; do
+    [ -x "$_lt" ] && _have_libtool=1 && break
+done
+if [ ! -f Makefile ] || [ "$_have_libtool" -eq 0 ] || [ "$1" = "reconf" ]; then
     ./configure ${CONFIGURE_FLAGS} --prefix=/usr --libdir=/usr/lib \
         CPPFLAGS="-I${DEPS}/usr/include" \
         CFLAGS="${CFLAGS} -I${DEPS}/usr/include" \
