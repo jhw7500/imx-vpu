@@ -3,8 +3,16 @@
 # Yocto 빌드트리의 imx-vpuwrap recipe-sysroot에서 복사한다.
 set -e
 
+. "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/env.sh"
+
 TOP="$(cd "$(dirname "$0")" && pwd)"
-SRC=${1:-/opt/desktop/build-desktop/tmp/work/cortexa53-crypto-mx8mp-fsl-linux/imx-vpuwrap/4.6.1-r0/recipe-sysroot}
+# 인자로 준 경로가 1순위, 없으면 .env 의 HANTRO_SYSROOT.
+SRC=${1:-$HANTRO_SYSROOT}
+[ -n "${SRC}" ] || {
+    echo "hantro recipe-sysroot 경로가 없다." >&2
+    echo "사용법: $0 [recipe-sysroot 경로]   또는 .env 의 HANTRO_SYSROOT 를 채운다" >&2
+    exit 1
+}
 
 [ ! -d ${SRC}/usr/include/hantro_dec ] && {
     echo "hantro 헤더를 찾을 수 없음: ${SRC}"

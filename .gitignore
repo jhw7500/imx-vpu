@@ -19,7 +19,9 @@ imx-vpuwrap/config.log
 imx-vpuwrap/config.status
 imx-vpuwrap/config.sub
 imx-vpuwrap/configure
-imx-vpuwrap/libtool
+# configure 가 만드는 libtool 은 호스트 트리플 접두사가 붙는다
+# (예: aarch64-poky-linux-libtool). 접두사 없는 이름만 막으면 새어 나간다.
+imx-vpuwrap/*libtool
 imx-vpuwrap/ltmain.sh
 imx-vpuwrap/missing
 imx-vpuwrap/install-sh
@@ -48,3 +50,6 @@ compile_commands.json
 .omc/
 /tmp/
 /vpu-libs.tar.gz
+
+# 호스트별 빌드 경로 (.env.example 을 복사해 만든다)
+.env

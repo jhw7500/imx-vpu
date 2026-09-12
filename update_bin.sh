@@ -6,8 +6,12 @@
 #    한쪽만 교체된 장치는 인코더 파라미터가 어긋나 오동작한다.
 set -e
 
+. "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/env.sh"
+
 TOP="$(cd "$(dirname "$0")" && pwd)"
-DIST=${TOP}/../pim-package-jhw/dist/pim
+# 기본값은 형제 디렉터리라 호스트 종속이 아니다. 다른 곳에 두었으면 .env 의
+# PIM_PACKAGE_DIR 로 가리킨다 (gstApp/update_bin.sh 와 같은 이름).
+DIST=${PIM_PACKAGE_DIR:-${TOP}/../pim-package-jhw}/dist/pim
 
 [ ! -d ${DIST} ] && { echo "dist 폴더 없음: ${DIST}"; exit 1; }
 
@@ -15,9 +19,7 @@ WRAP=${TOP}/staging/usr/lib/libfslvpuwrap.so.3.0.0
 PLUG=${TOP}/imx-gst1.0-plugin/build/plugins/vpu/libgstvpu.so
 [ ! -f ${WRAP} ] || [ ! -f ${PLUG} ] && { echo "산출물 없음 — 먼저 ./make-for-imx8.sh 실행"; exit 1; }
 
-# strip을 위해 SDK 환경 로드
-[ "$SDK_LOC" ] || SDK_LOC=/shared/fsl-imx-xwayland/5.10-hardknott
-[ "$SDK_NAME" ] || SDK_NAME=cortexa53-crypto-poky-linux
+# strip을 위해 SDK 환경 로드 (경로는 env.sh 가 .env 에서 읽어 둔다)
 . ${SDK_LOC}/environment-setup-${SDK_NAME}
 
 install -d ${DIST}/usr/lib/gstreamer-1.0
