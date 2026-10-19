@@ -8,7 +8,7 @@ Yocto/bitbake 없이 SDK만으로 수 초 단위 수정-빌드 반복이 가능�
 | 경로 | 내용 |
 |---|---|
 | `imx-vpuwrap/` | NXP 4.6.1 + 화질 백포트 4커밋 (QpMin/Max, bitrate 보정, profile/level, 후속픽스) |
-| `imx-gst1.0-plugin/` | NXP 4.6.1 + set-keyframe(자사) + 백포트 2커밋 (qp-min/qp-max, profile/level) |
+| `imx-gst1.0-plugin/` | NXP 4.6.1 + set-keyframe(자사) + 백포트 3커밋 (qp-min/qp-max, profile/level, 비-GObject 디버그 로그) |
 | `deps/` | vpuwrap 빌드용 hantro 헤더/라이브러리 (recipe-sysroot에서 복사, 1회성) |
 | `staging/` | vpuwrap 빌드 산출물 — 플러그인이 이 헤더/라이브러리로 빌드됨 |
 | `make-for-imx8.sh` | 전체 빌드 (max9296의 make-for-imx8 대응) |

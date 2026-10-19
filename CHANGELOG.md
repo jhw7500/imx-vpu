@@ -8,6 +8,11 @@
   - `profile`/`level` 속성 — H.264 High(CABAC+8x8)/HEVC Main10 선택 (MLK-26134)
   - CBR bitrate 보정 (MMFMWK-9147)
 
+### Fixed
+- vpu 내부 메모리 할당 디버그 로그가 GObject 가 아닌 `VpuInternalMem` 을 object 인자로
+  넘기던 것을 NXP upstream `85acd07` 백포트로 수정 (MMFMWK-9055, #47)
+  - 같은 커밋이 이 빌드에서 컴파일되지 않는 fbdevsink 의 같은 부류 1줄도 고친다
+
 ## [0.1.0] - 2026-08-03
 
 ### Added
